@@ -117,6 +117,10 @@ def _process_cc_info_headers(headers, *, exclude_headers):
 
     files = []
     for header in headers:
+        # Comment out this `.is_source` check and
+        # `*.pbobjc.h` headers come back in Xcode
+        if not header.is_source:
+            continue
         if header in exclude_headers:
             continue
         files.append(_process_header(header))

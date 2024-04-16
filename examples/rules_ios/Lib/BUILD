@@ -3,9 +3,22 @@ load(
     rules_ios_apple_framework = "apple_framework",
 )
 
+load("@rules_proto_grpc//:defs.bzl", "filter_files")
+load("@rules_proto_grpc//objc:defs.bzl", "objc_proto_library")
+
 exports_files(
     ["Info.plist"],
     visibility = ["//Lib:__subpackages__"],
+)
+
+proto_library(
+    name = "foo_proto",
+    srcs = ["foo.proto"],
+)
+
+objc_proto_library(
+    name = "foo_protoc_objc",
+    protos = ["foo_proto"],
 )
 
 rules_ios_apple_framework(
@@ -25,6 +38,7 @@ rules_ios_apple_framework(
     xcconfig = {
         "APPLICATION_EXTENSION_API_ONLY": "YES",
     },
+    deps = ["foo_protoc_objc"],
 )
 
 rules_ios_apple_framework(

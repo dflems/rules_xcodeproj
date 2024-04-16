@@ -11,3 +11,6 @@ build --apple_platform_type=ios
 
 # Use a user.bazelrc if it exists
 try-import %workspace%/user.bazelrc
+
+build --noenable_bzlmod
+build --noincompatible_disallow_empty_glob
