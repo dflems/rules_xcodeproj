@@ -22,6 +22,18 @@ objc_proto_library(
 )
 
 rules_ios_apple_framework(
+    name = "undesired_target_with_proto_1",
+    srcs = ["Resources.swift"],
+    deps = ["foo_protoc_objc"],
+)
+
+rules_ios_apple_framework(
+    name = "undesired_target_with_proto_2",
+    srcs = ["Resources.swift"],
+    deps = ["foo_protoc_objc"],
+)
+
+rules_ios_apple_framework(
     name = "Lib",
     srcs = ["Resources.swift"],
     bundle_id = "rules-xcodeproj.LibFramework",
@@ -38,7 +50,10 @@ rules_ios_apple_framework(
     xcconfig = {
         "APPLICATION_EXTENSION_API_ONLY": "YES",
     },
-    deps = ["foo_protoc_objc"],
+    deps = [
+        "undesired_target_with_proto_1",
+        "undesired_target_with_proto_2",
+    ],
 )
 
 rules_ios_apple_framework(
